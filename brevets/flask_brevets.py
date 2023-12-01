@@ -50,15 +50,24 @@ def _calc_times():
     Expects one URL-encoded argument, the number of miles.
     """
     app.logger.debug("Got a JSON request")
-    km = request.args.get('km', 999, type=float)
+    b = request.args.get('distance') #, 999, type=float)
+    km = request.args.get('km', b, type=float)
+    
+    start = request.args.get('begin_date') #, 999, type=str)
     app.logger.debug("km={}".format(km))
-    app.logger.debug("request.args: {}".format(request.args))
+    app.logger.debug("dist={}".format(b))
+    app.logger.debug("date={}".format(start))
+    #app.logger.debug("request.args: {}".format(request.args))
+    
     # FIXME!
     # Right now, only the current time is passed as the start time
     # and control distance is fixed to 200
     # You should get these from the webpage!
-    open_time = acp_times.open_time(km, 200, arrow.now().isoformat).format('YYYY-MM-DDTHH:mm')
-    close_time = acp_times.close_time(km, 200, arrow.now().isoformat).format('YYYY-MM-DDTHH:mm')
+    open_time = acp_times.open_time(km, b, arrow.get(start)) .format('YYYY-MM-DDTHH:mm')
+    close_time = acp_times.close_time(km, b, arrow.get(start)) .format('YYYY-MM-DDTHH:mm')
+    
+    app.logger.debug("close={}".format(close_time))
+    
     result = {"open": open_time, "close": close_time}
     return flask.jsonify(result=result)
 
