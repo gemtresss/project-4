@@ -4,7 +4,7 @@
 ### Rachel Lee
 Michal Young, Ram Durairajan. Updated by Ali Hassani.
 
-## Date: 10-9-2023
+## Date: 12-1-2023
 ## Instructor: Ali Hassani
 
 More JQuery implementations and test cases.
